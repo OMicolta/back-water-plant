@@ -3,9 +3,11 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { SendgridModule } from 'src/sendgrid/sendgrid.module';
+
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
+  imports: [TypeOrmModule.forFeature([User]),SendgridModule],
   controllers: [UsersController],
   providers: [UsersService],
 })

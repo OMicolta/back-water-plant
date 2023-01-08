@@ -10,4 +10,5 @@ export class CategoryDto {
         message: 'La descrición se ha de indicar'
     })
     description: string;
+    
 }

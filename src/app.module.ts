@@ -2,13 +2,22 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './user/users.module';
 import { CategoryModule } from './category/categories.module';
 import { ConfigModule } from '@nestjs/config';
-import { User } from './users/entities/user.entity';
+import { User } from './user/entities/user.entity';
+import { SendgridModule } from './sendgrid/sendgrid.module';
+import { RestaurantsModule } from './restaurant/restaurants.module';
+import { PlanModule } from './plan/plan.module';
 
 @Module({
-  imports: [UsersModule, CategoryModule,ConfigModule.forRoot(), TypeOrmModule.forRoot({
+  imports: [UsersModule,
+    CategoryModule,
+    SendgridModule,
+    RestaurantsModule,
+    ConfigModule.forRoot({
+    expandVariables: true,
+  }), TypeOrmModule.forRoot({
     type: 'mongodb',
     url: process.env.MONGODB_CONNECTION_STRING,
     database: process.env.MONGODB_DATABASE,
@@ -18,7 +27,7 @@ import { User } from './users/entities/user.entity';
     ssl: true,
     useUnifiedTopology: true,
     useNewUrlParser: true
-  }), TypeOrmModule.forFeature([User])],
+  }), TypeOrmModule.forFeature([User]), SendgridModule, RestaurantsModule, PlanModule],
 
   controllers: [AppController],
   providers: [AppService],

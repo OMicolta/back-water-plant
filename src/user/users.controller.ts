@@ -1,24 +1,20 @@
 import { 
-  BadRequestException,
   Body, 
   Controller, 
   Delete, 
   Get, 
   HttpCode, 
-  HttpStatus, 
   Param, 
-  ParseIntPipe, 
   Patch, 
   Post, 
   Put, 
-  Res,
-  UsePipes
 } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 import { UserPatchDto } from './dto/user-patch.dto';
 import { ObjectID } from 'typeorm';
+import { SendgridService } from 'src/sendgrid/sendgrid.service'; // add this
 
 @Controller('Users')
 export class UsersController {

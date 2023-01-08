@@ -4,6 +4,7 @@ import { UserDto } from './dto/user.dto';
 import { UserPatchDto } from './dto/user-patch.dto';
 import { MongoRepository,ObjectID } from 'typeorm';
 import { InjectRepository  } from '@nestjs/typeorm';
+import { SendgridService } from 'src/sendgrid/sendgrid.service';
 
 @Injectable()
 export class UsersService {
@@ -11,6 +12,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: MongoRepository<User>,
+    private readonly sendgridService: SendgridService
   ) {}
 
   getAll(): Promise<User[]> {
@@ -38,13 +40,20 @@ export class UsersService {
   async insert(body: UserDto): Promise<User> {
     const user = await this.usersRepository.findBy({document : body.document
     })
-    console.log(user, user.length == 0)
     if(user.length != 0) {
       throw new NotFoundException(`No se puede guardar el usuario con el documento ${body.document} porque ya existe`);
     }
     
     const userToSave = this.usersRepository.create(body);
     await this.usersRepository.save(userToSave);
+    const mail = {
+      to: body.email,
+      subject: 'Hello from Lowit',
+      from: 'teamlowit@gmail.com', // Fill it with your validated email on SendGrid account
+      text: 'Welcome to Lowit',
+      html: '<h1>Welcome to lowit</h1>',
+    };
+    await this.sendgridService.send(mail);
     return userToSave;
   }
 
