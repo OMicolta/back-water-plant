@@ -14,7 +14,9 @@ import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 import { UserPatchDto } from './dto/user-patch.dto';
 import { ObjectID } from 'typeorm';
-import { SendgridService } from 'src/sendgrid/sendgrid.service'; // add this
+import { UserEmailDto } from './dto/user-email.dto';
+import { UserEmail } from './entities/user-email.entity';
+
 
 @Controller('Users')
 export class UsersController {
@@ -24,6 +26,11 @@ export class UsersController {
   @Get()
   getAll(): Promise<User[]> {
     return this.UsersService.getAll();
+  }
+
+  @Get('/emails')
+  getAllEmails(): Promise<UserEmail[]> {
+    return this.UsersService.getAllEmails();
   }
 
   @Get(':id')
@@ -39,6 +46,11 @@ export class UsersController {
   @Post()
   async create(@Body() body: UserDto): Promise<User> {
     return this.UsersService.insert(body);
+  }
+
+  @Post('/emails')
+  async createEmail(@Body() body: UserEmailDto): Promise<UserEmail> {
+    return this.UsersService.insertEmail(body);
   }
 
   @Put(':id')
