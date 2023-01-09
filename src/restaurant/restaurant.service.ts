@@ -5,8 +5,8 @@ import { InjectRepository  } from '@nestjs/typeorm';
 import { RestaurantDto } from './dto/restaurant.dto';
 import { RestaurantPatchDto } from './dto/restaurant-patch.dto';
 import { CategoryService } from 'src/category/categories.service';
-import { Plan } from 'src/plan/entities/plan.entity';
 import { PlanService } from 'src/plan/plan.service';
+
 
 
 @Injectable()
@@ -22,15 +22,12 @@ export class RestaurantService {
       }
     
       async getId(id: ObjectID): Promise<Restaurant> {
-        let rst = await this.restaurantRepository.findBy({id : id
-        })
-        if(rst) {
-          const response: Restaurant = rst[0];
-          //const plans: Plan[] = await this.planService.getByIdRestaurant(id);
-          //response.plans = plans;
-          return response;
+        let rst = await this.restaurantRepository.findOneById(id)
+        
+        if(rst != null) {
+          return rst;
         }
-        throw new NotFoundException('No puedo encontrar ese Usero');
+        throw new NotFoundException('No puedo encontrar el restaurante con el ID ' + id);
       }
     
       async getName(name: string): Promise<Restaurant> {

@@ -32,7 +32,7 @@ export class RestaurantController {
 
   @Get('/name/:name')
   findByDocument(@Param('name') name: string) {
-    return this.restaurantService.getName(document.toString());
+    return this.restaurantService.getName(name.toString());
   }
 
   @Post()

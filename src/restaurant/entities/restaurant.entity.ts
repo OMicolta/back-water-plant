@@ -6,7 +6,7 @@ import { Column, Entity, ObjectIdColumn,ObjectID } from "typeorm";
 export class Restaurant {
     @ObjectIdColumn() id: ObjectID;
   
-    @ObjectIdColumn() 
+    @Column()
     document: string;
     
     @Column()
@@ -38,6 +38,5 @@ export class Restaurant {
 
     @Column(() => Category)
     category: Category
-
-    plans: Plan[]
+    
 }
