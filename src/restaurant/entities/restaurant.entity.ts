@@ -1,4 +1,5 @@
 import { Category } from "src/category/entities/category.entity";
+import { Plan } from "src/plan/entities/plan.entity";
 import { Column, Entity, ObjectIdColumn,ObjectID } from "typeorm";
 
 @Entity('restaurants')
@@ -37,4 +38,6 @@ export class Restaurant {
 
     @Column(() => Category)
     category: Category
+
+    plans: Plan[]
 }

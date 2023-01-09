@@ -13,8 +13,9 @@ import { PlanModule } from './plan/plan.module';
 @Module({
   imports: [UsersModule,
     CategoryModule,
-    SendgridModule,
-    RestaurantsModule,
+    SendgridModule, 
+    RestaurantsModule, 
+    PlanModule,
     ConfigModule.forRoot({
     expandVariables: true,
   }), TypeOrmModule.forRoot({
@@ -27,7 +28,7 @@ import { PlanModule } from './plan/plan.module';
     ssl: true,
     useUnifiedTopology: true,
     useNewUrlParser: true
-  }), TypeOrmModule.forFeature([User]), SendgridModule, RestaurantsModule, PlanModule],
+  })],
 
   controllers: [AppController],
   providers: [AppService],

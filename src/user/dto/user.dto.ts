@@ -1,4 +1,4 @@
-import { IsInt, IsString, Length, IsDate , MinLength,IsEmail} from "class-validator";
+import { IsInt, IsString, IsDate , MinLength,IsEmail} from "class-validator";
 import { Type } from 'class-transformer';
 export class UserDto {
   @IsString({

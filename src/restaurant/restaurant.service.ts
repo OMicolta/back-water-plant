@@ -5,6 +5,8 @@ import { InjectRepository  } from '@nestjs/typeorm';
 import { RestaurantDto } from './dto/restaurant.dto';
 import { RestaurantPatchDto } from './dto/restaurant-patch.dto';
 import { CategoryService } from 'src/category/categories.service';
+import { Plan } from 'src/plan/entities/plan.entity';
+import { PlanService } from 'src/plan/plan.service';
 
 
 @Injectable()
@@ -23,7 +25,10 @@ export class RestaurantService {
         let rst = await this.restaurantRepository.findBy({id : id
         })
         if(rst) {
-          return rst[0];
+          const response: Restaurant = rst[0];
+          //const plans: Plan[] = await this.planService.getByIdRestaurant(id);
+          //response.plans = plans;
+          return response;
         }
         throw new NotFoundException('No puedo encontrar ese Usero');
       }
@@ -38,10 +43,10 @@ export class RestaurantService {
       }
     
       async insert(body: RestaurantDto): Promise<Restaurant> {
-        const user = await this.restaurantRepository.findBy({name : body.name
+        const rst = await this.restaurantRepository.findBy({name : body.name
         })
         
-        if(user.length != 0) {
+        if(rst.length != 0) {
           throw new NotFoundException(`No se puede guardar el restaurante con el nombre ${body.name} porque ya existe`);
         }
         const ctg = await this.categoryService.getId(body.idCategory);
@@ -78,4 +83,6 @@ export class RestaurantService {
         }
         throw new NotFoundException(`No he encontrado el Usero con id ${id}`);
       }
+
+    
 }
