@@ -68,8 +68,9 @@ export class UsersService {
   async insertEmail(body: UserEmailDto): Promise<UserEmail> {
     const userEmail = await this.usersEmailRepository.findBy({email : body.email
     })
-    if(userEmail.length != 0) {
-      throw new NotFoundException(`No se puede guardar el usuario con el documento ${body.email} porque ya existe`);
+    
+    if(!userEmail?.length) {
+      throw new NotFoundException(`No se puede guardar el usuario con el email ${body.email} porque ya existe`);
     }
     
     const emailToSave = this.usersEmailRepository.create(body);

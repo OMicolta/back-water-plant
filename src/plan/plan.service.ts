@@ -44,7 +44,7 @@ export class PlanService {
       async insert(body: PlanDto): Promise<Plan> {
         const user = await this.planRepository.findBy({name : body.name
         })
-        console.log(user, user.length == 0)
+        
         if(user.length != 0) {
           throw new NotFoundException(`No se puede guardar la categoria con el nombre ${body.name} porque ya existe`);
         }
