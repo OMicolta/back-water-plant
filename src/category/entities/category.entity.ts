@@ -1,17 +1,17 @@
-import { Column, Entity, ObjectIdColumn,ObjectID } from "typeorm";
+import { Column, Entity, ObjectIdColumn, ObjectID } from "typeorm";
 
-@Entity('categories')
+@Entity('measurements')
 export class Category {
     @ObjectIdColumn() id: ObjectID;
 
     @Column()
-    name: string;
+    soilMoisture: number;
 
     @Column()
-    description: string;
+    temperature: number;
 
     @Column()
-    isActive: boolean = true;
+    airHumidity: number;
 
     @Column()
     createdAt: Date = new Date();

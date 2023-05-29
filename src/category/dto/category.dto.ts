@@ -1,15 +1,18 @@
-import {  IsString } from "class-validator";
+import { IsString } from "class-validator";
 export class CategoryDto {
-    
+
     @IsString({
         message: 'El nombre se ha de indicar'
     })
-    name: string;
+    soilMoisture: number;
 
     @IsString({
         message: 'La descrición se ha de indicar'
     })
-    description: string;
-    
-   
+    temperature: number;
+
+    @IsString({
+        message: 'La descrición se ha de indicar'
+    })
+    airHumidity: number;
 }

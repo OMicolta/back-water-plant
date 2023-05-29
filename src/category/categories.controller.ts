@@ -1,24 +1,24 @@
-import { 
-  Body, 
-  Controller, 
-  Delete, 
-  Get, 
-  HttpCode, 
-  Param, 
-  Patch, 
-  Post, 
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
   Put
 } from '@nestjs/common';
 import { Category } from './entities/category.entity';
 import { CategoryService } from './categories.service';
 import { ObjectID } from 'typeorm';
 import { CategoryPatchDto } from './dto/category-patch.dto';
-import { CategoryDto} from './dto/category.dto';
+import { CategoryDto } from './dto/category.dto';
 
-@Controller('categories')
+@Controller('measurements')
 export class CategoryController {
 
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(private readonly categoryService: CategoryService) { }
 
   @Get()
   getAll(): Promise<Category[]> {
@@ -30,11 +30,6 @@ export class CategoryController {
     return this.categoryService.getId(id);
   }
 
-  @Get('/name/:name')
-  findByDocument(@Param('name') name: string) {
-    return this.categoryService.getName(document.toString());
-  }
-
   @Post()
   async create(@Body() body: CategoryDto): Promise<Category> {
     return this.categoryService.insert(body);
@@ -42,7 +37,7 @@ export class CategoryController {
 
   @Put(':id')
   async update(
-    @Param('id') id: ObjectID, 
+    @Param('id') id: ObjectID,
     @Body() body: CategoryDto
   ): Promise<Category> {
     return this.categoryService.update(id, body);
