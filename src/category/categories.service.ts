@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable prefer-const */
+/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Category } from './entities/category.entity';
 import { MongoRepository, ObjectID } from 'typeorm';
@@ -21,7 +24,7 @@ export class CategoryService {
     if (ctg) {
       return ctg;
     }
-    throw new NotFoundException('No puedo encontrar ese Usero');
+    throw new NotFoundException('No encontrado');
   }
 
   async insert(body: CategoryDto): Promise<Category> {
@@ -39,7 +42,7 @@ export class CategoryService {
     if (User) {
       return this.categoryRepository.save(User);
     }
-    throw new NotFoundException(`No he encontrado el Usero con id ${id}`);
+    throw new NotFoundException(`No he encontrado ${id}`);
   }
 
   async delete(id: ObjectID) {
@@ -47,6 +50,10 @@ export class CategoryService {
     if (User) {
       return this.categoryRepository.remove(User);
     }
-    throw new NotFoundException(`No he encontrado el Usero con id ${id}`);
+    throw new NotFoundException(`No he encontrado ${id}`);
+  }
+
+  async deleteAll() {
+    return this.categoryRepository.deleteMany({});
   }
 }

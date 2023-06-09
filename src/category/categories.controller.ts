@@ -1,9 +1,11 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
   Delete,
   Get,
   HttpCode,
+  InternalServerErrorException,
   Param,
   Patch,
   Post,
@@ -56,4 +58,16 @@ export class CategoryController {
   async remove(@Param('id') id: ObjectID) {
     return this.categoryService.delete(id);
   }
+
+  @Delete()
+  @HttpCode(204)
+  async removeAll() {
+    try {
+      await this.categoryService.deleteAll();
+    } catch (error) {
+      console.error(error);
+      throw new InternalServerErrorException('Error al eliminar los registros de la colección');
+    }
+  }
+
 }

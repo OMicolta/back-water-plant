@@ -2,17 +2,17 @@ import { IsString } from "class-validator";
 export class CategoryDto {
 
     @IsString({
-        message: 'El nombre se ha de indicar'
+        message: 'La humedad en tierra es requerida'
     })
     soilMoisture: number;
 
     @IsString({
-        message: 'La descrición se ha de indicar'
+        message: 'La temperatura es requerida'
     })
     temperature: number;
 
     @IsString({
-        message: 'La descrición se ha de indicar'
+        message: 'La humedad en aire es requerida'
     })
     airHumidity: number;
 }
